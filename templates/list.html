@@ -1,0 +1,35 @@
+<p class="col s4 " title="Buscar valores na API da Steam">
+    <a class="waves-effect waves-light btn right" onclick="search_values()">Exibe valores</a>
+</p>
+
+<h4>Favoritos </h4>
+
+<div class="progress" style="display: none;">
+    <div class="determinate" style="width: 0%"></div>
+</div>
+
+{% for favorite in list_favorites %}
+
+<div class="divider"></div>
+<div class="section">
+    <h5>{{ favorite.name }}</h5>
+
+    <p>
+        <a class="waves-effect waves-light btn red accent-3 right"
+            href="{{ url_for('delete_favorite', id_favorite=favorite.steam_id) }}">
+            Excluir
+        </a>
+    </p>
+    <div class="row">
+        <a href="{{ url_for('game', game_id=favorite.steam_id) }}">
+            <img class="col s4" src="{{ favorite.logo_url }}">
+        </a>
+        
+        <div id="{{ favorite.steam_id }}"></div>
+
+    </div>
+
+    {% endfor %}
+    <div class="divider"></div>
+
+</div>

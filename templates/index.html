@@ -1,0 +1,121 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="row m 8">
+    <div class="col s12">
+      <div class="row">
+        <div class="input-field col s12">
+          <i class="material-icons prefix">search</i>
+          <input type="text" id="autocomplete-input" class="autocomplete">
+          <label for="autocomplete-input">Informe ID ou Nome do jogo</label>
+        </div>
+      </div>
+    </div>
+  </div>
+
+{% include 'list.html' %}
+
+{% endblock %}
+
+{% block js %}
+
+{% with messages = get_flashed_messages() %}
+{% if messages %}
+    {% for message in messages %}
+    <script>
+      M.toast({html: '{{ message }}'})
+    </script>
+    {% endfor %}
+{% endif %}
+{% endwith %}
+
+
+<script>
+
+function search_values(){
+
+  $('.progress').show();
+  let percent = 0;
+
+  $.ajax({
+    type: 'GET',
+    url: "{{ url_for('search_values') }}",
+    success: response => {
+
+      favorites = response.length;
+
+      for (var i = 0; i < favorites; i++) {
+
+        const data = `
+                <p><b>Preço BRL:</b> ${response[i].brl}</p>
+                <p><b>Preço ARS:</b> ${response[i].arg}</p>
+                <p><b>Preço convertido:</b> R$ ${response[i].conversao}</p>
+                `
+        const elem = $('#' + response[i].id);
+
+        if(elem.length){
+          percent += (1 / favorites) * 100;
+          $('.determinate').attr('style',`width: ${percent}%`);
+          elem.html(data);
+        }
+
+      }
+
+      setTimeout(function(){ 
+        $('.progress').hide();
+        $('.determinate').attr('style','width: 0%');
+      }, 1000);
+
+
+    },
+    error: function(error){
+      alert(error);
+    }
+  });
+}
+
+
+$(document).ready(function() {
+
+    // Busca lista de jogos steam para autocomplete
+    $.ajax({
+      type: 'GET',
+      url: "{{ url_for('steam_list') }}",
+      success: function(response) {
+
+        var gameArray = response;
+        var dataGame = {};
+
+        for (var i = 0; i < gameArray.length; i++) {
+          dataGame[
+            gameArray[i].name + ' (' + gameArray[i].appid +')'
+            ] = null; // define imagem como null
+        }
+        
+        $('input.autocomplete').autocomplete({
+            data: dataGame,
+            limit: 30,
+            minLength: 3,
+            onAutocomplete: function (val) {
+
+                //Pega id da string
+                var newTxt = val.split('(');
+                for (var i = 1; i < newTxt.length; i++) {
+                    game_id = newTxt[i].split(')')[0];
+                }
+
+                link = "{{ url_for('game', game_id=0) }}";
+                new_link = link.replace(0, game_id);
+                window.location.href = new_link;
+            },
+        },
+
+        );
+        
+      }
+    });
+    
+});
+</script>
+{% endblock %}
+

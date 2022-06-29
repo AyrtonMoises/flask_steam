@@ -1,0 +1,81 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="row">
+
+    <table class="table">
+        <thead>
+            <tr>
+                <td>
+                    <p class="flow-text">{{ dados.nome }} ({{ dados.id_game }}) </hp>
+                </td>
+            </tr>
+            <tr>
+                <td><img src="{{ dados.logo }}"></td>
+            </tr>
+        </thead>
+        <tbody>
+            {% if dados.preco_detalhes != 0 %}
+            <tr class="highlight">
+                <th>Moeda</th>
+                <td>{{ dados.preco_detalhes.currency }}</td>
+                <td>{{ dados.preco_detalhes_arg.currency }}</td>
+            </tr>
+            <tr class="highlight">
+                <th>Preço anterior</th>
+                <td>{{ dados.preco_detalhes.initial_formatted }}</td>
+                <td>{{ dados.preco_detalhes_arg.initial_formatted }}</td>
+            </tr>
+            <tr class="highlight">
+                <th>Desconto</th>
+                <td>{{ dados.preco_detalhes.discount_percent }}%</td>
+                <td>{{ dados.preco_detalhes_arg.discount_percent }}%</td>
+            </tr>
+            <tr class="highlight">
+                <th>Preço atual</th>
+                <td>{{ dados.preco_detalhes.final_formatted }}</td>
+                <td>{{ dados.preco_detalhes_arg.final_formatted }}</td>
+            </tr>
+            <tr class="highlight">
+                <th>Preço em reais</th>
+                <td>-</td>
+                <td>R$ {{ dados.moeda_hoje }}</td>
+            </tr>
+            {% else %}
+            <tr class="highlight">
+                <th>Valores não disponíveis para mais detalhes acesse:</th>
+                <td>
+                    <a href="https://store.steampowered.com/agecheck/app/{{ dados.id_game }}/" target="_blank">
+                        https://store.steampowered.com/agecheck/app/{{ dados.id_game }}
+                    </a>
+                </td>
+            </tr>
+            {% endif %}
+        </tbody>
+    </table>
+    <p> 
+        
+    {% if dados.id_favorite %}
+        <a 
+            class="waves-effect waves-light btn red accent-3"
+            href="{{ url_for('delete_favorite', id_favorite=dados.id_favorite) }}"
+        >
+            Deletar favorito
+        </a>
+    
+    {% elif dados.preco_detalhes %}
+        <form action="{{ url_for('save_favorite') }}" method="post">
+            <input name="steam_id" type="hidden" value="{{ dados.id_game }}">
+            <input name="name" type="hidden" value="{{ dados.nome }}">
+            <input name="logo_url" type="hidden" value="{{ dados.logo }}">
+            <button class="waves-effect waves-light btn" type="submit">Salvar favorito</button>
+        </form>
+ 
+    {% endif %}
+        
+    </p>
+
+</div>
+
+{% endblock %}
