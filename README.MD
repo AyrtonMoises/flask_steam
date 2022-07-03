@@ -10,16 +10,23 @@ link: [https://flask-steam.herokuapp.com/]
 Prepara ambiente
 ```
 python3 -m venv venv
-pip install -r requirements.txt
 source venv/bin/activate
+pip install -r requirements.txt
+
 ```
 Renomear arquivo na raíz do projeto '.env.sample' para'.env' com as variáveis de ambiente
 Alterar arquivo na raíz do projeto 'settings.toml' com as suas variáveis em cada tipo de ambiente
+
+Entrar na pasta flask_steam
+```
+cd flask_steam
+```
 
 Executa migrações no banco de dados
 ```
 flask db upgrade 
 ```
+
 Inicia projeto
 ```
 flask run
@@ -33,6 +40,11 @@ python -m pytest --cov=flask_steam
 
 ### Implantação Heroku
 
-```
 Informar variáveis de ambiente na plataforma usando FLASK_NOME_VARIABLE pois o projeto utiliza o Dynaconf
+
+Adicionar o seguinte buildpack no app, para ele identificar o arquivo .locales para uso da aplicação
+
+```
+heroku buildpacks:add heroku-community/locale
+
 ```
