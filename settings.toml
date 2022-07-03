@@ -1,0 +1,44 @@
+[default]
+DEBUG = false
+SQLALCHEMY_DATABASE_URI = 'postgresql://postgres:7695@127.0.0.1:5432/flask_steam'
+SQLALCHEMY_TRACK_MODIFICATIONS = false
+TITLE = "Flask Steam"
+SECRET_KEY = "senha_ultrasecreta"
+CACHE_TYPE= "SimpleCache"
+EXTENSIONS = [
+    "flask_steam.ext.cache:init_app",
+    "flask_steam.ext.database:init_app",
+    "flask_steam.blueprints.favorite:init_app",
+]
+
+[development]
+SQLALCHEMY_DATABASE_URI = 'postgresql://postgres:7695@127.0.0.1:5432/flask_steam'
+
+EXTENSIONS = [
+    "flask_debugtoolbar:DebugToolbarExtension",
+    "dynaconf_merge_unique"  # to reuse extensions list from [default]
+]
+TEMPLATES_AUTO_RELOAD = true
+DEBUG = true
+DEBUG_TOOLBAR_ENABLED = true
+DEBUG_TB_INTERCEPT_REDIRECTS = false
+DEBUG_TB_PROFILER_ENABLED = true
+DEBUG_TB_TEMPLATE_EDITOR_ENABLED = true
+DEBUG_TB_PANELS = [
+    "flask_debugtoolbar.panels.versions.VersionDebugPanel",
+    "flask_debugtoolbar.panels.sqlalchemy.SQLAlchemyDebugPanel",
+    "flask_debugtoolbar.panels.timer.TimerDebugPanel",
+    "flask_debugtoolbar.panels.headers.HeaderDebugPanel",
+    "flask_debugtoolbar.panels.request_vars.RequestVarsDebugPanel",
+    "flask_debugtoolbar.panels.template.TemplateDebugPanel",
+    "flask_debugtoolbar.panels.route_list.RouteListDebugPanel",
+    "flask_debugtoolbar.panels.logger.LoggingPanel",
+    "flask_debugtoolbar.panels.profiler.ProfilerDebugPanel",
+    "flask_debugtoolbar.panels.config_vars.ConfigVarsDebugPanel"
+]
+
+[testing]
+SQLALCHEMY_DATABASE_URI = 'sqlite:///test.sqlite3'
+
+[production]
+SQLALCHEMY_DATABASE_URI = 'postgresql://postgres:7695@127.0.0.1:5432/flask_steam'

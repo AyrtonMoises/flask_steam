@@ -1,4 +1,4 @@
-from app import db
+from flask_steam.ext.database import db
 
 
 class Game(db.Model):

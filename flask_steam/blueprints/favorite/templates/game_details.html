@@ -8,7 +8,7 @@
         <thead>
             <tr>
                 <td>
-                    <p class="flow-text">{{ dados.nome }} ({{ dados.id_game }}) </hp>
+                    <p class="flow-text">{{ dados.nome }}</hp>
                 </td>
             </tr>
             <tr>
@@ -40,7 +40,7 @@
             <tr class="highlight">
                 <th>Preço em reais</th>
                 <td>-</td>
-                <td>R$ {{ dados.moeda_hoje }}</td>
+                <td>{{ dados.moeda_hoje }}</td>
             </tr>
             {% else %}
             <tr class="highlight">
@@ -57,15 +57,13 @@
     <p> 
         
     {% if dados.id_favorite %}
-        <a 
-            class="waves-effect waves-light btn red accent-3"
-            href="{{ url_for('delete_favorite', id_favorite=dados.id_favorite) }}"
-        >
-            Deletar favorito
-        </a>
-    
+    <form action="{{ url_for('favorite.delete_favorite') }}" method="post" >
+        <input name="steam_id" type="hidden" value="{{ dados.id_game }}">
+        <button class="waves-effect waves-light btn red accent-3" type="submit">Deletar favorito</button>
+    </form>
+
     {% elif dados.preco_detalhes %}
-        <form action="{{ url_for('save_favorite') }}" method="post">
+        <form action="{{ url_for('favorite.save_favorite') }}" method="post" >
             <input name="steam_id" type="hidden" value="{{ dados.id_game }}">
             <input name="name" type="hidden" value="{{ dados.nome }}">
             <input name="logo_url" type="hidden" value="{{ dados.logo }}">

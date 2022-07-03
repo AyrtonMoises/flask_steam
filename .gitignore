@@ -2,3 +2,6 @@
 venv
 .env
 .flaskenv
+*.pytest_cache
+.coverage
+**.sqlite3**

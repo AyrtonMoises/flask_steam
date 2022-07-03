@@ -13,8 +13,8 @@ python3 -m venv venv
 pip install -r requirements.txt
 source venv/bin/activate
 ```
-Renomear arquivos na raíz do projeto '.env_sample' para'.env' com as variáveis de ambiente e
-'.flaskenv_sample' para'.flaskenv' com as variáveis de ambiente
+Renomear arquivo na raíz do projeto '.env.sample' para'.env' com as variáveis de ambiente
+Alterar arquivo na raíz do projeto 'settings.toml' com as suas variáveis em cada tipo de ambiente
 
 Executa migrações no banco de dados
 ```
@@ -23,4 +23,16 @@ flask db upgrade
 Inicia projeto
 ```
 flask run
+```
+
+## Tests
+
+```
+python -m pytest --cov=flask_steam
+```
+
+### Implantação Heroku
+
+```
+Informar variáveis de ambiente na plataforma usando FLASK_NOME_VARIABLE pois o projeto utiliza o Dynaconf
 ```

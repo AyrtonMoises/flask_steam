@@ -1,5 +1,5 @@
-from app import db
-from models import Game
+from flask_steam.ext.database import db
+from .models import Game
 
 
 def get_game(steam_id):
