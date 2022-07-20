@@ -1,6 +1,5 @@
 [default]
 DEBUG = false
-SQLALCHEMY_DATABASE_URI = 'postgresql://postgres:7695@127.0.0.1:5432/flask_steam'
 SQLALCHEMY_TRACK_MODIFICATIONS = false
 TITLE = "Flask Steam"
 SECRET_KEY = "senha_ultrasecreta"
@@ -12,8 +11,6 @@ EXTENSIONS = [
 ]
 
 [development]
-SQLALCHEMY_DATABASE_URI = 'postgresql://postgres:7695@127.0.0.1:5432/flask_steam'
-
 EXTENSIONS = [
     "flask_debugtoolbar:DebugToolbarExtension",
     "dynaconf_merge_unique"  # to reuse extensions list from [default]
@@ -39,6 +36,3 @@ DEBUG_TB_PANELS = [
 
 [testing]
 SQLALCHEMY_DATABASE_URI = 'sqlite:///test.sqlite3'
-
-[production]
-SQLALCHEMY_DATABASE_URI = 'postgresql://postgres:7695@127.0.0.1:5432/flask_steam'

@@ -16,6 +16,7 @@ pip install -r requirements.txt
 ```
 Renomear arquivo na raíz do projeto '.env.sample' para'.env' com as variáveis de ambiente
 Alterar arquivo na raíz do projeto 'settings.toml' com as suas variáveis em cada tipo de ambiente
+Renomear arquivo na raíz do projeto 'sample.secrets.toml' para'.secrets.toml' com as variáveis de ambiente
 
 Entrar na pasta flask_steam
 ```
