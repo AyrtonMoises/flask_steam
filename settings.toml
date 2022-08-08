@@ -2,7 +2,6 @@
 DEBUG = false
 SQLALCHEMY_TRACK_MODIFICATIONS = false
 TITLE = "Flask Steam"
-SECRET_KEY = "senha_ultrasecreta"
 CACHE_TYPE= "SimpleCache"
 EXTENSIONS = [
     "flask_steam.ext.cache:init_app",

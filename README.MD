@@ -49,3 +49,8 @@ Adicionar o seguinte buildpack no app, para ele identificar o arquivo .locales p
 heroku buildpacks:add heroku-community/locale
 
 ```
+
+No Heroku configurar para deploy automatizado ou manualmente informando o repositorio no Git ou pelo comando:
+```
+git push heroku main
+```
